@@ -1,0 +1,55 @@
+name: Build Macropad
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout User Files
+      uses: actions/checkout@v4
+      with:
+        path: user_files
+
+    - name: Checkout Vial-QMK Engine
+      uses: actions/checkout@v4
+      with:
+        repository: vial-kb/vial-qmk
+        ref: vial
+        submodules: recursive
+        path: vial-qmk
+
+    - name: Copy Keyboard Files
+      run: |
+        # بننقل ملفاتك جوه نظام QMK
+        mkdir -p vial-qmk/keyboards/handwired/mymacropad
+        cp -r user_files/keyboards/handwired/mymacropad/* vial-qmk/keyboards/handwired/mymacropad/
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install Tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-avr avr-libc
+        python -m pip install --upgrade pip
+        python -m pip install qmk
+        python -m pip install -r vial-qmk/requirements.txt
+
+    - name: Compile
+      run: |
+        cd vial-qmk
+        qmk setup -y
+        qmk compile -kb handwired/mymacropad -km vial
+      env:
+        QMK_HOME: ${{ github.workspace }}/vial-qmk
+
+    - name: Upload Firmware
+      uses: actions/upload-artifact@v4
+      with:
+        name: My-Firmware
+        path: |
+          vial-qmk/*.hex
+          vial-qmk/*.bin

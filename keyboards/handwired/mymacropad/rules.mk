@@ -2,13 +2,10 @@ MCU = atmega32u4
 ARCH = AVR
 BOOTLOADER = caterina
 
-
 VIA_ENABLE = yes
 VIAL_ENABLE = yes
 LTO_ENABLE = yes
 
-
-ENCODER_ENABLE = no
+ENCODER_ENABLE = yes
 RGBLIGHT_ENABLE = yes
-
-RGBLIGHT_ENABLE = yes
+OLED_ENABLE = yes

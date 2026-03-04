@@ -3,33 +3,23 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    RoyalKeys
-#define PRODUCT         MyMacroPad
+#define MANUFACTURER    Royal Keys
+#define PRODUCT         Rival Pad 16
 
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
 
+// مطابقة تماماً للسكيماتيك الجديد
 #define MATRIX_ROW_PINS { F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { B1, B3, B2, B6 }
+#define MATRIX_COL_PINS { B4, B5, B6, B7 }
 #define DIODE_DIRECTION COL2ROW
 
-/* --- الحل السحري: إجبار الموقع على استخدام أرقامك --- */
-#ifdef ENCODER_A_PINS
-    #undef ENCODER_A_PINS
-#endif
-#define ENCODER_A_PINS { D0 }
-
-#ifdef ENCODER_B_PINS
-    #undef ENCODER_B_PINS
-#endif
-#define ENCODER_B_PINS { D1 }
-
+// إعدادات البكرة (Encoder)
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B1 }
 #define ENCODER_RESOLUTION 4
 
-#define RGB_DI_PIN D3
-#define RGBLED_NUM 16
+// إعدادات إضاءة الـ RGB
+#define RGB_DI_PIN B2
+#define RGBLED_NUM 16 // لو عدد الليدات مختلف غير الرقم ده
 #define RGBLIGHT_ANIMATIONS
-
-#define VIAL_KEYBOARD_UID {0x8F, 0x45, 0x12, 0xAB, 0xCD, 0xEF, 0x54, 0x32}
-#define VIAL_UNLOCK_COMBO_ROWS { 0, 0 }
-#define VIAL_UNLOCK_COMBO_COLS { 0, 1 }
